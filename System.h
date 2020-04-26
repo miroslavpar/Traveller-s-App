@@ -12,6 +12,7 @@ class System {
 private:
     vector<User> users;
     bool wrongConnection;
+    string nameOfLoggedUser;
     bool isDuplicate(string&, string&, string&);
     bool isExisting(string&);
     bool isLogged();
@@ -25,6 +26,7 @@ public:
     void logIn(string&,string&);
     void friends(string&);
     bool getWrongConnection();
+    string getNameOfloggeduser();
 };
 
 

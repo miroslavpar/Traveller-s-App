@@ -7,13 +7,17 @@
 const char* USERS_DATABASE_FILE = "users.db.txt";
 System::System() {
     wrongConnection = false;
+    nameOfLoggedUser = "";
 }
 System::~System() {}
 void System::help() {
-    cout << "Commands : " <<endl;
-    cout << "\tregistration <nickname> <password> <email>\n";
-    cout << "\tlogin <nickname> <password>\n";
-    cout << " \t friends <yours_nickname> <nickname> ( if you are logged in ) \n";
+    cout << "Commands : \n"
+            "\t\tregistration <nickname> <password> <email>\n"
+            "\t\tlogin <nickname> <password>\n"
+            " IF LOGGED IN : \n"
+            "\t\tfriend <nickname> \n"
+            "\t\tlogout <yours_nickname> logouts of user\n";
+    cout << "\nUPGRADES ARE COMMIGN SOON!!!!!\n";
 
 
 }
@@ -30,6 +34,7 @@ void System::logout(string & name) {
         if(it.getNickname() == name){
             it.setLogged(false);
             cout << " Successfully logged out. " << it.getNickname() << "\n";
+            nameOfLoggedUser.clear();
         }
     }
 }
@@ -63,7 +68,7 @@ bool System::isLogged(){
 }
 void System::registration (string& _nickname, string& _pass, string& _email) {
     if(isLogged()){
-        cout << " You are already logged in ! \n";
+        cout << " Cannot use command \"registration\" when you are logged in!\n";
         return;
     }
     if(isDuplicate(_nickname, _pass, _email)){
@@ -71,6 +76,7 @@ void System::registration (string& _nickname, string& _pass, string& _email) {
     }
     User user(_nickname, _pass, _email);
     user.createOwnDB();
+    nameOfLoggedUser = _nickname;
     users.push_back(user);
     ofstream out (USERS_DATABASE_FILE, ios::app);
     if(!out) {
@@ -91,7 +97,7 @@ void System::logIn(string& _nickname, string& _pass) {
     }
     ifstream in (USERS_DATABASE_FILE, ios::in);
     if(!in){
-        cout << " Something went wrong! Maybe there is no one registrated yet. \n" ;
+        cout << " Something went wrong! Maybe there is no one registered yet. \n" ;
         wrongConnection = true;
         return;
     }
@@ -105,7 +111,7 @@ void System::logIn(string& _nickname, string& _pass) {
                 return;
             }
             else {
-                cout << " Successfully logged in " << _nickname << endl;
+                cout << " Successfully logged in " << _nickname << " 🙂\n";
                 for (auto& it : users){
                     if(it.getNickname() == _nickname){
                         it.setLogged(true);
@@ -131,7 +137,7 @@ bool System::isExisting(string & _name) {
 }
 void System::friends(string& _name) {
     if(!isExisting(_name)){
-        cout << " User with name " << _name << " is not found. \n";
+        cout << " User with name " << _name << " is not found." << " 🙁\n";
         return;
     }
     if (!isLogged()){
@@ -153,8 +159,11 @@ void System::friends(string& _name) {
     pass = user.getPass();
     email = user.getEmail();
     user.addFriend(name,pass,email);
-    cout << " Successful operation friends. " <<endl;
+    cout << nameOfLoggedUser << " you have successfully become friends with " << _name << " 🙂\n";
 }
 bool System::getWrongConnection() {
     return wrongConnection;
+}
+string System::getNameOfloggeduser(){
+    return nameOfLoggedUser;
 }

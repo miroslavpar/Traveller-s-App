@@ -7,12 +7,12 @@
 
 #include "ICommand.h"
 
-class HelpCpmmand : public ICommand {
+class HelpCommand : public ICommand {
 public:
-    HelpCpmmand() : ICommand(string("help")) {};
+    HelpCommand() : ICommand(string("help")) {};
     void execute(System &system) {
         assert(arguments.empty());
-
+        system.help();
     }
 };
 #endif //TRAVELLER_S_APP_HELPCOMMAND_H

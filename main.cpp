@@ -4,8 +4,8 @@
 
 using namespace std;
 int main() {
-    System syss;
-    CallingCommandLine sys(syss);
+    System system;
+    CallingCommandLine sys(system);
     sys.run();
     return 0;
 }
