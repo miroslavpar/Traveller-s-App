@@ -8,20 +8,27 @@ const char* USERS_DATABASE_FILE = "users.db.txt";
 System::System() {
     wrongConnection = false;
     nameOfLoggedUser = "";
+    ifstream iFile(USERS_DATABASE_FILE, ios::in);
+    string nickname,pass, email;
+    while(!iFile.eof()){
+        iFile >>nickname >> pass >> email;
+        User user(nickname, pass, email);
+        users.push_back(user);
+    }
+    iFile.close();
 }
 System::~System() {}
-void System::help() {
+void System::help()const {
     cout << "Commands : \n"
             "\t\tregistration <nickname> <password> <email>\n"
             "\t\tlogin <nickname> <password>\n"
             " IF LOGGED IN : \n"
             "\t\tfriend <nickname> \n"
-            "\t\tlogout <yours_nickname> logouts of user\n";
-    cout << "\nUPGRADES ARE COMMIGN SOON!!!!!\n";
-
-
+            "\t\tlogout <yours_nickname> logouts of user\n"
+            "\t\tshowfriend <friend> <city> show comment for <city>\n"
+            "\t\tshow <city> all comment and ratings!\n";
 }
-void System::logout(string & name) {
+void System::logout(const string & name) {
     if(!isLogged()){
         cout << " You are not logged in yet in order to logout.\n";
         return;
@@ -38,7 +45,7 @@ void System::logout(string & name) {
         }
     }
 }
-bool System::isDuplicate(string& _nickname, string& _pass, string& _email){
+bool System::isDuplicate(const string& _nickname,const  string& _pass,const  string& _email)const{
     for (auto& it : users) {
         if(it.getNickname() == _nickname) {
             cout << " User with this nickname already exists ! \n";
@@ -51,14 +58,14 @@ bool System::isDuplicate(string& _nickname, string& _pass, string& _email){
     }
     return false;
 }
-User System::getUserByName(string& _name){
+User System::getUserByName(const string& _name)const{
     for(auto& it : users){
         if(it.getNickname() == _name){
             return it;
         }
     }
 }
-bool System::isLogged(){
+bool System::isLogged()const{
     for (auto& it : users){
         if(it.getLogged()){
             return true;
@@ -89,7 +96,7 @@ void System::registration (string& _nickname, string& _pass, string& _email) {
     cout << " Please check your email. \n";
     wrongConnection = false;
 }
-void System::logIn(string& _nickname, string& _pass) {
+void System::logIn(const string& _nickname,const  string& _pass) {
     if(isLogged()){
         cout << " You are already logged in ! \n";
         wrongConnection = true;
@@ -116,18 +123,18 @@ void System::logIn(string& _nickname, string& _pass) {
                     if(it.getNickname() == _nickname){
                         it.setLogged(true);
                         wrongConnection = false;
+                        nameOfLoggedUser = it.getNickname();
                     }
                 }
                 return;
             }
         }
-        in >> password;
-        in >> email;
+        in >> password >> email;
     }
     wrongConnection = true;
     cout << " No user found please. Please try again! \n";
 }
-bool System::isExisting(string & _name) {
+bool System::isExisting(const string & _name)const {
     for(auto& it : users){
         if(it.getNickname() == _name){
             return true;
@@ -135,7 +142,7 @@ bool System::isExisting(string & _name) {
     }
     return false;
 }
-void System::friends(string& _name) {
+void System::friends(const string& _name) {
     if(!isExisting(_name)){
         cout << " User with name " << _name << " is not found." << " 🙁\n";
         return;
@@ -161,9 +168,16 @@ void System::friends(string& _name) {
     user.addFriend(name,pass,email);
     cout << nameOfLoggedUser << " you have successfully become friends with " << _name << " 🙂\n";
 }
-bool System::getWrongConnection() {
+bool System::getWrongConnection() const{
     return wrongConnection;
 }
-string System::getNameOfloggeduser(){
+string System::getNameOfloggeduser()const{
     return nameOfLoggedUser;
+}
+void System::showFriendDest(const string& name,const string& dest)const{
+    for(auto& it: users){
+        if(nameOfLoggedUser == it.getNickname()){
+            it.showFriendInfo(name, dest);
+        }
+    }
 }

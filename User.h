@@ -7,6 +7,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include "Holiday.h"
+
 using namespace std;
 class User {
 private:
@@ -15,6 +17,7 @@ private:
     string password;
     bool logged;
     vector<User>friends;
+    vector<Holiday> holidays;
 
     void validatepass(string&);
 public:
@@ -26,12 +29,15 @@ public:
     string getNickname()const;
     string getEmail() const;
     string getPass()const;
-    void setNickname(string&);
-    void setEmail(string&);
-    void setPass(string&);
+    void setNickname(const string&);
+    void setEmail(const string&);
+    void setPass(const string&);
     bool getLogged()const;
-    void  setLogged(bool);
+    void setLogged(bool);
     void addFriend(string&,string&,string&);
+    void serialise();
+    void showFriendInfo(const string&,const string&)const;
+    void getHolidayComment(const string&)const;
 };
 
 

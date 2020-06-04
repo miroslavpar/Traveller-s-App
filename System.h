@@ -13,20 +13,21 @@ private:
     vector<User> users;
     bool wrongConnection;
     string nameOfLoggedUser;
-    bool isDuplicate(string&, string&, string&);
-    bool isExisting(string&);
-    bool isLogged();
+    bool isDuplicate(const string&,const string&,const string&)const;
+    bool isExisting(const string&)const;
+    bool isLogged()const;
 public:
     System();
     ~System();
-    void help();
-    void logout(string&);
-    User getUserByName(string&);
-    void registration(string&,string&,string&);
-    void logIn(string&,string&);
-    void friends(string&);
-    bool getWrongConnection();
-    string getNameOfloggeduser();
+    void help()const;
+    void logout(const string&);
+    User getUserByName(const string&)const;
+    void registration(string&, string&, string&);
+    void logIn(const string&,const string&);
+    void friends(const string&);
+    bool getWrongConnection()const;
+    string getNameOfloggeduser()const;
+    void showFriendDest(const string&,const string&)const;
 };
 
 
