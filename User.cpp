@@ -104,3 +104,10 @@ void User::getHolidayComment(const string& dest)const{
         cout << " User's database is empty\n";
     }
 }
+void User::getRating(const string& dest) const {
+    for(auto& it : holidays){
+        if(it.getCity() == dest){
+           cout << it.getRating();
+        }
+    }
+}

@@ -64,3 +64,6 @@ string Holiday::getCity() const {
 string Holiday::getComment() const {
     return comment;
 }
+double Holiday::getRating()const{
+    return rating;
+}

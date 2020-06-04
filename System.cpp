@@ -181,3 +181,10 @@ void System::showFriendDest(const string& name,const string& dest)const{
         }
     }
 }
+void System::show(const string& destination)const{
+    for (auto& it :users){
+        cout << it.getNickname() << ' ';
+        it.getHolidayComment(destination);
+        it.getRating(destination);
+    }
+}

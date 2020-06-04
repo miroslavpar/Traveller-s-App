@@ -10,7 +10,8 @@
 #include "commands/FriendCommand.h"
 #include "commands/ExitAccountCommand.h"
 #include "commands/HelpCommand.h"
-#include "commands/ShowFriend.h"
+#include "commands/ShowFriendCommand.h"
+#include "commands/ShowCommand.h"
 
 
 CallingCommandLine::CallingCommandLine(System& _system):system(_system) {
@@ -19,9 +20,8 @@ CallingCommandLine::CallingCommandLine(System& _system):system(_system) {
     commands.push_back(std::make_unique<FriendCommand>());
     commands.push_back(std::make_unique<ExitAccountCommand>());
     commands.push_back(std::make_unique<HelpCommand>());
-    commands.push_back(std::make_unique<ShowFriend>());
-
-
+    commands.push_back(std::make_unique<ShowFriendCommand>());
+    commands.push_back(std::make_unique<ShowCommand>());
 }
 string takeCommand(string command){
     stringstream stream;

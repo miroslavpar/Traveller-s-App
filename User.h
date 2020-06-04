@@ -38,6 +38,7 @@ public:
     void serialise();
     void showFriendInfo(const string&,const string&)const;
     void getHolidayComment(const string&)const;
+    void getRating(const string&)const;
 };
 
 

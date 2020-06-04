@@ -28,6 +28,7 @@ public:
     bool getWrongConnection()const;
     string getNameOfloggeduser()const;
     void showFriendDest(const string&,const string&)const;
+    void show(const string&)const
 };
 
 
