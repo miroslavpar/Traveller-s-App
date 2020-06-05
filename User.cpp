@@ -94,7 +94,7 @@ void User::showFriendInfo(const string& friendName, const string& destination) c
 }
 void User::getHolidayComment(const string& dest)const{
     bool flag = false;
-    for(auto&it:holidays){
+    for(auto&it : holidays){
         if(it.getCity() == dest){
             cout << it.getComment() << endl;
             flag = true;

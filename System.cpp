@@ -175,6 +175,10 @@ string System::getNameOfloggeduser()const{
     return nameOfLoggedUser;
 }
 void System::showFriendDest(const string& name,const string& dest)const{
+    if(!isLogged()){
+        cout << " Cannot use command \"showfriend\" if you are not logged in!\n";
+        return;
+    }
     for(auto& it: users){
         if(nameOfLoggedUser == it.getNickname()){
             it.showFriendInfo(name, dest);
@@ -182,9 +186,15 @@ void System::showFriendDest(const string& name,const string& dest)const{
     }
 }
 void System::show(const string& destination)const{
+    if(!isLogged()){
+        cout << " Cannot use command \"show\" if you are not logged in!\n";
+        return;
+    }
     for (auto& it :users){
-        cout << it.getNickname() << ' ';
+        cout << it.getNickname();
+        cout << "\n\tComment: ";
         it.getHolidayComment(destination);
-        it.getRating(destination);
+        cout << "\n\tRating: ";
+        it.getRating(destination);cout << endl;
     }
 }

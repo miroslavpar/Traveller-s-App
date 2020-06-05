@@ -28,7 +28,7 @@ public:
     Holiday(string&, string& ,string&, string&, double, string&, string&);
     string getCity()const;
     string getComment()const;
-    double getRating()const
+    double getRating()const;
 };
 
 #endif //TRAVELLER_S_APP_HOLIDAY_H
